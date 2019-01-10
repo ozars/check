@@ -79,6 +79,11 @@ START_TEST(test_xml_esc_fail_msg)
 }
 END_TEST
 
+void dummy_setup()
+{
+    ck_abort_msg("Doh!");
+}
+
 static Suite *make_log1_suite(void)
 {
     Suite *s;
@@ -86,6 +91,7 @@ static Suite *make_log1_suite(void)
 
     s = suite_create("S1");
     tc = tcase_create("Core");
+    tcase_add_unchecked_fixture(tc, dummy_setup, NULL);
     suite_add_tcase(s, tc);
     tcase_add_test(tc, test_pass);
     tcase_add_test(tc, test_fail);

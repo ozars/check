@@ -63,7 +63,7 @@ static void srunner_iterate_suites(SRunner * sr,
                                    const char *include_tags,
                                    const char *exclude_tags,
                                    enum print_output print_mode);
-static void srunner_iterate_tcase_tfuns(SRunner * sr, Suite * s, TCase * tc);
+static int srunner_iterate_tcase_tfuns(SRunner * sr, Suite * s, TCase * tc);
 static void srunner_add_failure(SRunner * sr, TestResult * tf);
 static TestResult * srunner_run_setup(List * func_list,
                                       enum fork_status fork_usage,
@@ -231,7 +231,7 @@ static void srunner_iterate_suites(SRunner * sr,
     check_list_free(exclude_tag_lst);
 }
 
-static void srunner_iterate_tcase_tfuns(SRunner * sr, Suite * s, TCase * tc)
+static int srunner_iterate_tcase_tfuns(SRunner * sr, Suite * s, TCase * tc)
 {
     List *tfl;
     TF *tfun;
@@ -274,6 +274,7 @@ static void srunner_iterate_tcase_tfuns(SRunner * sr, Suite * s, TCase * tc)
             }
         }
     }
+    return tr != NULL;
 }
 
 static void srunner_add_failure(SRunner * sr, TestResult * tr)
